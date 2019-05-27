@@ -6,9 +6,9 @@ namespace FeedMe.Models
     public class Restaurant
     {
         [BsonId]
-        private int Id { get; set; }
+        public int Id { get; set; }
 
         [BsonElement]
-        private string name { get; set; }
+        public string name { get; set; }
     }
 }
