@@ -1,5 +1,6 @@
-﻿@model IEnumerable<FeedMe.Models.MenuItem>
+﻿@model IEnumerable<FeedMe.Models.Restaurant>
 @{
+
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,40 +13,31 @@
                 Number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
+                Name
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @{ int count = 1;
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => count)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.price)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Add", "Add", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-                count++;
-            }
+        foreach (var item in Model)
+        {
+            item.menuGenerator();
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.menu)
+                </td>
+                <td>
+                    @Html.ActionLink("Add", "Add", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        count++;
+
+    }
         }
     </tbody>
 </table>

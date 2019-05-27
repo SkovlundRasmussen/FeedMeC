@@ -12,13 +12,13 @@ namespace FeedMe.Controllers
 {
     public class MongoConnection
     {
-        private IMongoCollection<MenuItem> collection;
+        private IMongoCollection<Restaurant> collection;
 
         public void DBConnect()
         {
             var client = new MongoClient("mongodb://localhost:32771");
             IMongoDatabase db = client.GetDatabase("FeedMe");
-            this.collection = db.GetCollection<MenuItem>("MenuItems");
+            this.collection = db.GetCollection<Restaurant>("Restaurant");
         }
     }
 }
