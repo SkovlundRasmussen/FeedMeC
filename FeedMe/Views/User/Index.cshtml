@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FeedMe.Models.User>
+﻿@model IEnumerable<FeedMe.ViewModels.UserCreateViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,23 +14,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.user_id)
+                @Html.DisplayNameFor(model => model.user.user_id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.firstname)
+                @Html.DisplayNameFor(model => model.user.firstname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.lastname)
+                @Html.DisplayNameFor(model => model.user.lastname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.email)
+                @Html.DisplayNameFor(model => model.user.email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.password)
+                @Html.DisplayNameFor(model => model.role.role_name)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.customerInfo.street_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.role_id)
+                @Html.DisplayNameFor(model => model.customerInfo.street_number)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerInfo.postal_code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerInfo.city)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -38,22 +49,31 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.user_id)
+                @Html.DisplayFor(modelItem => item.user.user_id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.firstname)
+                @Html.DisplayFor(modelItem => item.user.firstname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.lastname)
+                @Html.DisplayFor(modelItem => item.user.lastname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.email)
+                @Html.DisplayFor(modelItem => item.user.email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.password)
+                @Html.DisplayFor(modelItem => item.role.role_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.role_id)
+                @Html.DisplayFor(modelItem => item.customerInfo.street_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerInfo.street_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerInfo.postal_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerInfo.city)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
