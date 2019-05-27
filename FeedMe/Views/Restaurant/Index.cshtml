@@ -15,29 +15,56 @@
             <th>
                 Name
             </th>
-            <th></th>
+            <th>
+                Category
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                
+            </th>
         </tr>
     </thead>
     <tbody>
         @{ int count = 1;
-        foreach (var item in Model)
-        {
-            item.menuGenerator();
+            var item_id = "";
+            foreach (var item in Model)
+            {
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.menu)
-                </td>
-                <td>
-                    @Html.ActionLink("Add", "Add", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        count++;
+                @foreach (var i in item.menu)
+                {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => count)
+            </td>
 
-    }
+            @foreach (var j in i)
+            {
+
+                @if (j.Name != "_id")
+                {
+
+                    <td>
+                        @Html.DisplayFor(modelItem => j.Value.AsString)
+                    </td>
+                }
+                else
+                {
+                    item_id = j.Value.AsObjectId.ToString();
+                    Console.WriteLine("|||||||||||||||||||||-- " +item_id + " --|||||||||||||||||||||");
+                }
+
+
+                    }
+            <td>
+                @Html.ActionLink("Add", "Add", new {id=item_id })
+            </td>
+
+        </tr>
+                    count++;
+                }
+            }
         }
     </tbody>
-</table>
+    </table>

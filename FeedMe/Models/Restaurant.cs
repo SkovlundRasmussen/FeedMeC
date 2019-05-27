@@ -9,8 +9,6 @@ namespace FeedMe.Models
 {
     public class Restaurant
     {
-        SubMenuItem[] pizzaMenus;
-        SubMenuItem[] burgerMenus;
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -20,18 +18,13 @@ namespace FeedMe.Models
         public string name { get; set; }
 
         [BsonElement("menu")]
-        public BsonDocument menu { get; set; }
-    
-        public void menuGenerator()
-        {
-            foreach (var item in menu)
-            {
-                if (item.Name.ToLower() == "pizzas")
-                {
-                    Console.WriteLine("IM HERRRERERERERE : " + item.Name);
-                }
-            }
-        }
+        public BsonDocument[] menu { get; set; }
+
+    //    public IEnumerable<SubMenuItem> subMenu {get; set;}
+
+
+        
+
     }
 
     class SubMenuItem

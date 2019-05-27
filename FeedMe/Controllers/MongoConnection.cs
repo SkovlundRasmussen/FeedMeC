@@ -16,7 +16,7 @@ namespace FeedMe.Controllers
 
         public void DBConnect()
         {
-            var client = new MongoClient("mongodb://localhost:32771");
+            var client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase db = client.GetDatabase("FeedMe");
             this.collection = db.GetCollection<Restaurant>("Restaurant");
         }
