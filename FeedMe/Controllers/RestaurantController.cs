@@ -6,26 +6,24 @@ using FeedMe.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace FeedMe.Controllers
 {
     public class RestaurantController : Controller
     {
-        private IMongoCollection<MenuItem> collection;
+        private IMongoCollection<Restaurant> collection;
 
         public RestaurantController()
         {
             var client = new MongoClient("mongodb://localhost:32771");
             IMongoDatabase db = client.GetDatabase("FeedMe");
-            this.collection = db.GetCollection<MenuItem>("MenuItems");
+            this.collection = db.GetCollection<Restaurant>("Restaurant");
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var model1 = collection.Find(FilterDefinition<MenuItem>.Empty).ToList();
-            return View(model1);
+            var model = collection.Find(FilterDefinition<Restaurant>.Empty).ToList();
+            return View(model);
         }
     }
 }
