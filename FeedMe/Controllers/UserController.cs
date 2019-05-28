@@ -12,11 +12,15 @@ namespace FeedMe.Controllers
 {
     public class UserController : Controller
     {
-
+        const string SessionRoleId = "_RoleId";
+        const string SessionUserId = "_UserId";
+        const string SessionTest = "_Test";
         Sql_connection con = new Sql_connection();
         // GET: User
         public ActionResult Index()
         {
+
+
             DataTable dt = con.ReturnDataInDatatable("SELECT Users.user_id, firstname, lastname, email, role_name, street_name, street_number, postal_code, city " +
                 "                                    FROM Users " +
                 "                                    INNER JOIN CustomerInfo ON CustomerInfo.user_id = Users.user_id " +
@@ -43,8 +47,6 @@ namespace FeedMe.Controllers
                 customer.city = dt.Rows[i]["city"].ToString();
                 customer.postal_code = Convert.ToInt32(dt.Rows[i]["postal_code"]);
 
-                
-
                 userCustomer.user = user;
                 userCustomer.customerInfo = customer;
                 userCustomer.role = role;
@@ -63,29 +65,31 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(User user)
         {
+            DataTable dt = con.ReturnDataInDatatable($"SELECT email, Users.role_id, Users.user_id, role_name " +
+                                                     $"FROM Users " +
+                                                     $"INNER JOIN UsersRole ON UsersRole.role_id = Users.role_id " +
+                                                     $"WHERE email = '{ user.email }' AND password = '{user.password}'");
 
-            DataTable dt = con.ReturnDataInDatatable("SELECT email, role_id, password " +
-               "                                    FROM Users " +
-               "                                    INNER JOIN UsersRole ON UsersRole.role_id = Users.role_id");
-
-            if (dt != null)
+            if (dt.Rows.Count == 1)
             {
-                return View();
+                Console.WriteLine(dt.Rows[0]["role_id"]);
+
+                HttpContext.Session.SetInt32(SessionRoleId, Convert.ToInt32(dt.Rows[0]["role_id"]));
+                HttpContext.Session.SetInt32(SessionUserId, Convert.ToInt32(dt.Rows[0]["user_id"]));
+                
+                return View("Details");
             }
             else {
 
-                return View(user);
+                return View();
             }
- 
-
-          
-
             
         }
 
         // GET: User/Details/5
         public ActionResult Details(int id)
         {
+           
             return View();
         }
 
