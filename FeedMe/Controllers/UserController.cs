@@ -14,7 +14,6 @@ namespace FeedMe.Controllers
     {
         const string SessionRoleId = "_RoleId";
         const string SessionUserId = "_UserId";
-        const string SessionTest = "_Test";
         Sql_connection con = new Sql_connection();
         // GET: User
         public ActionResult Index()
@@ -106,14 +105,9 @@ namespace FeedMe.Controllers
         {
             if(ModelState.IsValid)
             {
+                // USING A STORED PROCEDURE. THIS WILL CHECK IF THE EMAIL OF THE USER EXIST IN THE PROGRAM 
                 con.InsertOrUpdate($"EXEC SP_newUser '{user.firstname}', '{user.lastname}', '{user.email}', '{user.password}','{customerInfo.city}', '{customerInfo.postal_code}', '{customerInfo.street_name}', '{customerInfo.street_number}'");
-                /*
-                con.InsertOrUpdate($"Insert Into Users (firstname, lastname, email, password, role_id) " +
-                                   $"Values ('{user.firstname}', '{user.lastname}', '{user.email}', '{user.password}', 1); " +
-                                   $"SELECT SCOPE_IDENTITY(); " +
-                                   $" Insert Into CustomerInfo(street_name, street_number, postal_code, city, user_id)" +
-                                   $"Values('{customerInfo.street_name}', '{customerInfo.street_number}', '{customerInfo.postal_code}', '{customerInfo.city}', @@IDENTITY)");
-                */
+
                 return RedirectToAction(nameof(Index));
             }
             else
