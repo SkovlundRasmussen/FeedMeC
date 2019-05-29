@@ -1,5 +1,6 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using Newtonsoft.Json.Linq
 @model IEnumerable<FeedMe.Models.Restaurant>
 @{
     ViewData["Title"] = "Detail";
@@ -42,7 +43,11 @@
     </tbody>
     <tbody>
     @{ int count = 1;
-        var item_id = ""; 
+        
+        var item_id = "";
+        var item_name = "";
+        var item_price = "";
+        
         foreach (var item in Model)
         {
             @Html.DisplayFor(modelItem => item.menu)
@@ -56,7 +61,7 @@
                      @foreach (var j in i)
                      {
 
-                         @if (j.Name != "_id")
+                         if (j.Name != "_id")
                           {
                               <td>
                                   @Html.DisplayFor(modelItem => j.Value.AsString)
@@ -66,9 +71,19 @@
                           {
                               item_id = j.Value.AsObjectId.ToString();
                           }
+                         
+                         if (j.Name == "name")
+                          {
+                              item_name = j.Value.AsString;
+                          }
+
+                         if (j.Name == "price")
+                         {
+                             item_price = j.Value.AsString;
+                         }
                      }
                      <td>
-                         @Html.ActionLink("Add", "Add", new { id=item_id, rest_id=item.Id })
+                         @Html.ActionLink("Add", "Add", new { id=item_id, name=item_name, price=item_price, rest_id=item.Id })
                      </td>
 
                  </tr>

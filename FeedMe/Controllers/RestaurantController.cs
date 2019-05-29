@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using FeedMe.Controllers;
 using FeedMe.Models;
 using FeedMe.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -16,9 +17,9 @@ namespace FeedMe.Controllers
 {
     public class RestaurantController : Controller
     {
+        private Item menuItem;
         Sql_connection con = new Sql_connection();
         private IMongoCollection<Restaurant> collection;
-        private string restaurant;
         
         const string SessionRoleId = "_RoleId";
         const string SessionRestId = "_RestId";
@@ -52,27 +53,52 @@ namespace FeedMe.Controllers
         // GET: /<controller>/
         public IActionResult Detail(string id)
         {
-            
             var model = collection.Find(document => document.Id == id).ToList();
-            restaurant = model.ToString();
             return View(model);
         }
-
-        public IActionResult Add(string id)
-        {
-            var model = collection.Find(document => document.Id == id).ToList();
-            return RedirectToPage("Detail/" + model, "Restaurant");
-        }
-
 
         public IActionResult Login()
         {
             return View();
         }
 
-        public IActionResult Add(string rest_id)
+        public IActionResult Add(string id, string name, string price, string rest_id)
         {
-            return View();
+            var model = collection.Find(FilterDefinition<Restaurant>.Empty).ToList();
+
+            Item item = new Item();
+            item.id = id;
+            item.name = name;
+            item.price = price;
+            item.restId = rest_id;
+            
+            
+            Console.WriteLine("Item ID : " + id);
+            Console.WriteLine("Name: " + name);
+            Console.WriteLine("Price: " + price);
+            Console.WriteLine("Restaurant ID: " + rest_id);
+
+            /*
+            foreach (var restaurant in model)
+            {
+                Console.WriteLine(restaurant.Id);
+                Console.WriteLine(restaurant.name);
+
+                foreach (var menuItem in restaurant.menu)
+                {
+                    foreach (var item in menuItem)
+                    {
+                        if (item.Value == id)
+                        {
+                            Console.WriteLine(item.Value);
+                        }
+                        
+                    }
+                }
+            }
+            */
+
+            return View(item);
         }
 
         [HttpPost]
@@ -100,7 +126,5 @@ namespace FeedMe.Controllers
             }
 
         }
-
-
     }
 }

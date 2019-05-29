@@ -1,5 +1,3 @@
-using System;
-
 namespace FeedMe.Models
 {
     public class ErrorViewModel

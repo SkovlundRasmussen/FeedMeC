@@ -8,7 +8,7 @@ namespace FeedMe.Models
     {
         public string userId { get; set; }
         public string restId { get; set; }
-        
+
         List<Item> items = new List<Item>();
 
         public void AddToCart(Item item)
@@ -20,11 +20,5 @@ namespace FeedMe.Models
         {
             items.Remove(item);
         }
-    }
-
-    public class Item
-    {
-        public string itemName { get; set; }
-        public string itemPrice { get; set; }
     }
 }
