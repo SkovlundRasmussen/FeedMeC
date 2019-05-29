@@ -17,10 +17,13 @@ namespace FeedMe.Controllers
 {
     public class RestaurantController : Controller
     {
+
+
         private Item menuItem;
         Sql_connection con = new Sql_connection();
         private IMongoCollection<Restaurant> collection;
-        
+
+        const string SessionUserId = "_UserId";
         const string SessionRoleId = "_RoleId";
         const string SessionRestId = "_RestId";
 
@@ -66,6 +69,20 @@ namespace FeedMe.Controllers
         {
             var model = collection.Find(FilterDefinition<Restaurant>.Empty).ToList();
 
+        
+            int session_id = Convert.ToInt32(HttpContext.Session.GetInt32(SessionUserId));
+
+
+            if (HttpContext.Session.GetInt32(SessionUserId).HasValue)
+            {
+                Console.WriteLine("DU ER LOGGET IND");
+            }
+            else {
+                Console.WriteLine("Der er ikke nogen session");
+            }
+           
+            con.InsertOrUpdate($"INSERT INTO Cart(user_id, rest_id, item_name, item_price) VALUES ('{session_id}', '{rest_id}', '{name}', '{price}')");
+
             Item item = new Item();
             item.id = id;
             item.name = name;
@@ -77,26 +94,6 @@ namespace FeedMe.Controllers
             Console.WriteLine("Name: " + name);
             Console.WriteLine("Price: " + price);
             Console.WriteLine("Restaurant ID: " + rest_id);
-
-            /*
-            foreach (var restaurant in model)
-            {
-                Console.WriteLine(restaurant.Id);
-                Console.WriteLine(restaurant.name);
-
-                foreach (var menuItem in restaurant.menu)
-                {
-                    foreach (var item in menuItem)
-                    {
-                        if (item.Value == id)
-                        {
-                            Console.WriteLine(item.Value);
-                        }
-                        
-                    }
-                }
-            }
-            */
 
             return View(item);
         }
