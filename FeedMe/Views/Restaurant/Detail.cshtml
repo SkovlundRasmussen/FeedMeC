@@ -6,16 +6,8 @@
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>Item</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-</table>
 
-<h1>Menu</h1>
+<h2>Menu</h2>
 <table class="table">
     <thead>
     <tr>
@@ -50,7 +42,6 @@
         
         foreach (var item in Model)
         {
-            @Html.DisplayFor(modelItem => item.menu)
             @foreach (var i in item.menu)
              {
                  <tr>
