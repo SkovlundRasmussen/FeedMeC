@@ -1,10 +1,18 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model IEnumerable<FeedMe.Models.Restaurant>
 @{
-
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<table class="table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+</table>
 
 <h1>Menu</h1>
 <table class="table">
@@ -28,8 +36,13 @@
     </tr>
     </thead>
     <tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+    <tbody>
     @{ int count = 1;
-        var item_id = "";
+        var item_id = ""; 
         foreach (var item in Model)
         {
             @Html.DisplayFor(modelItem => item.menu)
@@ -45,7 +58,6 @@
 
                          @if (j.Name != "_id")
                           {
-
                               <td>
                                   @Html.DisplayFor(modelItem => j.Value.AsString)
                               </td>
@@ -53,13 +65,10 @@
                           else
                           {
                               item_id = j.Value.AsObjectId.ToString();
-                              Console.WriteLine("|||||||||||||||||||||-- " +item_id + " --|||||||||||||||||||||");
                           }
-
-
                      }
                      <td>
-                         @Html.ActionLink("Add", "Add", new {id=item_id })
+                         @Html.ActionLink("Add", "Add", new { id=item_id })
                      </td>
 
                  </tr>
