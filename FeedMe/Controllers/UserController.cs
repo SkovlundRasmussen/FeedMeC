@@ -100,6 +100,11 @@ namespace FeedMe.Controllers
             
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
