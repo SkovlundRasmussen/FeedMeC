@@ -1,11 +1,3 @@
-create table FoodType
-(
-	type_id int identity
-		primary key,
-	type_name varchar(50)
-)
-go
-
 create table OrderStatus
 (
 	status_id int identity
@@ -18,23 +10,10 @@ create table Restaurant
 (
 	rest_id int identity
 		primary key,
-	name varchar(100) not null,
-	street_name varchar(50) not null,
-	street_number varchar(29) not null,
-	postal_code smallint not null,
-	city varchar(50) not null
+	rest_object_id varchar(30)
 )
 go
 
-create table RestaurantFoodTypes
-(
-	rest_id int not null
-		references Restaurant,
-	type_id int not null
-		references FoodType,
-	primary key (rest_id, type_id)
-)
-go
 
 create table UsersRole
 (
@@ -57,6 +36,18 @@ create table Users
 )
 go
 
+create table Restaurant_login
+(
+	rest_id int not null,
+	email varchar(100) not null,
+	pw varchar(100) not null,
+	role_id int not null,
+		foreign key (rest_id) references Restaurant (rest_id),
+		foreign key (role_id) references UsersRole (role_id),
+		primary key (rest_id, email)
+)
+go
+
 create table CustomerInfo
 (
 	street_name varchar(50) not null,
@@ -67,6 +58,14 @@ create table CustomerInfo
 		references Users
 )
 go
+
+create table Cart 
+(
+	user_id int not null references Users, 
+	rest_id int not null references Users, 
+	item_name varchar(60), not null, 
+	item_price varchar(60) not null 
+)
 
 create table Orders
 (

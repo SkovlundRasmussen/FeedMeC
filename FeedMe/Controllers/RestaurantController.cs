@@ -70,6 +70,11 @@ namespace FeedMe.Controllers
             return View();
         }
 
+        public IActionResult Add(string rest_id)
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(RestaurantLogin rest)

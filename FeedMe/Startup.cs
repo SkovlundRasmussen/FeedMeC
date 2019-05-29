@@ -69,7 +69,13 @@ namespace FeedMe
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-                
+
+                routes.MapRoute(
+                    "Rest",
+                    "{Restaurant}/{Add}/{id?}",
+                    new { controller = "Restaurant", action = "Add" });
+
+
             });
         }
     }
