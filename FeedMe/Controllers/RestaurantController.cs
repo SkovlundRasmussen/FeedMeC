@@ -78,26 +78,6 @@ namespace FeedMe.Controllers
             Console.WriteLine("Price: " + price);
             Console.WriteLine("Restaurant ID: " + rest_id);
 
-            /*
-            foreach (var restaurant in model)
-            {
-                Console.WriteLine(restaurant.Id);
-                Console.WriteLine(restaurant.name);
-
-                foreach (var menuItem in restaurant.menu)
-                {
-                    foreach (var item in menuItem)
-                    {
-                        if (item.Value == id)
-                        {
-                            Console.WriteLine(item.Value);
-                        }
-                        
-                    }
-                }
-            }
-            */
-
             return View(item);
         }
 
