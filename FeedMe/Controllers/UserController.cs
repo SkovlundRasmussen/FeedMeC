@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using FeedMe.Models;
 using FeedMe.ViewModels;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +14,25 @@ namespace FeedMe.Controllers
 {
     public class UserController : Controller
     {
+
         const string SessionRoleId = "_RoleId";
         const string SessionUserId = "_UserId";
         Sql_connection con = new Sql_connection();
+
+        static UInt64 CalculateHash(string read)
+        {
+            UInt64 hashedValue = 3074457345618258791ul;
+            for (int i = 0; i < read.Length; i++)
+            {
+                hashedValue += read[i];
+                hashedValue *= 3074457345618258799ul;
+            }
+            return hashedValue;
+        }
+
         // GET: User
         public ActionResult Index()
         {
-
 
             DataTable dt = con.ReturnDataInDatatable("SELECT Users.user_id, firstname, lastname, email, role_name, street_name, street_number, postal_code, city " +
                 "                                    FROM Users " +
@@ -64,10 +78,11 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(User user)
         {
+            var hashed_pw = CalculateHash(user.password);
             DataTable dt = con.ReturnDataInDatatable($"SELECT email, Users.role_id, Users.user_id, role_name " +
                                                      $"FROM Users " +
                                                      $"INNER JOIN UsersRole ON UsersRole.role_id = Users.role_id " +
-                                                     $"WHERE email = '{ user.email }' AND password = '{user.password}'");
+                                                     $"WHERE email = '{ user.email }' AND password = '{hashed_pw}'");
 
             if (dt.Rows.Count == 1)
             {
@@ -79,23 +94,10 @@ namespace FeedMe.Controllers
                 return View("Details");
             }
             else {
-
+                Console.WriteLine("DET VIRKER IKKE");
                 return View();
             }
             
-        }
-
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
-           
-            return View();
-        }
-
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
         }
 
         // POST: User/Create
@@ -103,10 +105,11 @@ namespace FeedMe.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user, CustomerInfo customerInfo)
         {
-            if(ModelState.IsValid)
+            var hashed_pw = CalculateHash(user.password);
+            if (ModelState.IsValid)
             {
                 // USING A STORED PROCEDURE. THIS WILL CHECK IF THE EMAIL OF THE USER EXIST IN THE PROGRAM 
-                con.InsertOrUpdate($"EXEC SP_newUser '{user.firstname}', '{user.lastname}', '{user.email}', '{user.password}','{customerInfo.city}', '{customerInfo.postal_code}', '{customerInfo.street_name}', '{customerInfo.street_number}'");
+                con.InsertOrUpdate($"EXEC SP_newUser '{user.firstname}', '{user.lastname}', '{user.email}', '{hashed_pw}','{customerInfo.city}', '{customerInfo.postal_code}', '{customerInfo.street_name}', '{customerInfo.street_number}'");
 
                 return RedirectToAction(nameof(Index));
             }
@@ -115,6 +118,12 @@ namespace FeedMe.Controllers
                 return View();
             }
         }
+
+        public ActionResult CreateStaff()
+        {
+            return View();
+        }
+
 
         // GET: User/Edit/5
         public ActionResult Edit(int id)
@@ -149,8 +158,6 @@ namespace FeedMe.Controllers
                 return View();
             }
 
-
-        
         }
 
         // POST: User/Edit/5
