@@ -13,6 +13,7 @@ namespace FeedMe.Controllers
 {
     public class RestaurantController : Controller
     {
+        private IMongoCollection<Order> order;
         private IMongoCollection<Restaurant> collection;
 
         public RestaurantController()
@@ -35,5 +36,7 @@ namespace FeedMe.Controllers
             var model = collection.Find(document => document.Id == id).ToList();
             return View(model);
         }
+
+        
     }
 }
