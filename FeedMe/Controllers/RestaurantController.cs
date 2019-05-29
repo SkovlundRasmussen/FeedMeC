@@ -15,10 +15,11 @@ namespace FeedMe.Controllers
     {
         private IMongoCollection<Order> order;
         private IMongoCollection<Restaurant> collection;
-
+        private string restaurant;
+        
         public RestaurantController()
         {
-            var client = new MongoClient("mongodb://localhost:32771");
+            var client = new MongoClient("mongodb+srv://admin:admin123@feedme-exv6o.mongodb.net/FeedMe?retryWrites=true");
             IMongoDatabase db = client.GetDatabase("FeedMe");
             this.collection = db.GetCollection<Restaurant>("Restaurant");
         }
@@ -33,10 +34,18 @@ namespace FeedMe.Controllers
         // GET: /<controller>/
         public IActionResult Detail(string id)
         {
+            
             var model = collection.Find(document => document.Id == id).ToList();
+            restaurant = model.ToString();
             return View(model);
         }
 
-        
+        public IActionResult Add(string id)
+        {
+            var model = collection.Find(document => document.Id == id).ToList();
+            return RedirectToPage("Detail/" + model, "Restaurant");
+        }
+
+
     }
 }
