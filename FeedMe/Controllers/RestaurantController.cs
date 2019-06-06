@@ -68,27 +68,29 @@ namespace FeedMe.Controllers
         public IActionResult Add(string id, string name, string price, string rest_id)
         {
             var model = collection.Find(FilterDefinition<Restaurant>.Empty).ToList();
-
-        
             int session_id = Convert.ToInt32(HttpContext.Session.GetInt32(SessionUserId));
+            int pk_rest_id;
+            string rest_test = rest_id;
 
-
-            if (HttpContext.Session.GetInt32(SessionUserId).HasValue)
+            DataTable dt = con.ReturnDataInDatatable($"SELECT * FROM Restaurant WHERE rest_object_id = '{rest_id}'");
+            if (dt.Rows.Count == 1)
             {
-                Console.WriteLine("DU ER LOGGET IND");
+                pk_rest_id = Convert.ToInt32(dt.Rows[0]["rest_id"]); 
             }
-            else {
-                Console.WriteLine("Der er ikke nogen session");
+            else
+            {
+                Console.WriteLine("There are no restaurant id's present");
+                return View();
             }
-           
-            con.InsertOrUpdate($"INSERT INTO Cart(user_id, rest_id, item_name, item_price) VALUES ('{session_id}', '{rest_id}', '{name}', '{price}')");
 
+           
+            con.InsertOrUpdate($"INSERT INTO Cart(user_id, rest_id, item_name, item_price) VALUES ('{session_id}', '{pk_rest_id}', '{name}', '{price}')");
+ 
             Item item = new Item();
             item.id = id;
             item.name = name;
             item.price = price;
-            item.restId = rest_id;
-            
+            item.restId = rest_id;            
             
             Console.WriteLine("Item ID : " + id);
             Console.WriteLine("Name: " + name);

@@ -22,9 +22,6 @@ namespace FeedMe.Models
 
     //    public IEnumerable<SubMenuItem> subMenu {get; set;}
 
-
-        
-
     }
 
     class SubMenuItem

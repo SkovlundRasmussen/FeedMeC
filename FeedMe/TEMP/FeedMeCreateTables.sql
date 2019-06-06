@@ -63,9 +63,10 @@ create table Cart
 (
 	user_id int not null references Users, 
 	rest_id int not null references Users, 
-	item_name varchar(60), not null, 
-	item_price varchar(60) not null 
+	item_name varchar(60) not null, 
+	item_price varchar(60) not null
 )
+go
 
 create table Orders
 (
