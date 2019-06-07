@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Checkout</h1>
+<p>Are you sure you want to order these items?</p>
+
+
+    @Html.ActionLink("Yes", "Checkout", new {id="checkout" })
+    <a asp-action="Index">No</a>
+
+
+
+

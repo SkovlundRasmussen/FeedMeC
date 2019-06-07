@@ -7,6 +7,7 @@
 
 <h1>Your cart</h1>
 
+
 <table class="table">
     <thead>
         <tr>
@@ -28,39 +29,30 @@
             <th></th>
         </tr>
     </thead>
-    @{
-        string user_id = "";
-        <tbody>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.restId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
 
-
-            @foreach (var item in Model)
-            {
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.restId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.datetime)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-                user_id = item.id;
-            }
-
-        </tbody>
-        @Html.ActionLink("Check out", "Checkout", new { id = user_id });
-    }
-
+        @Html.ActionLink("Checkout", "Checkout");
+    </tbody>
 </table>

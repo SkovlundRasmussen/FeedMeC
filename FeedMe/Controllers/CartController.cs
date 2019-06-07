@@ -17,11 +17,12 @@ namespace FeedMe.Controllers
         public ActionResult Index()
         {
             int session_id = Convert.ToInt32(HttpContext.Session.GetInt32(SessionUserId));
-
-            DataTable dt = con.ReturnDataInDatatable($"SELECT * FROM Cart WHERE user_id = '{session_id}'");                                   
+          
+            DataTable dt = con.ReturnDataInDatatable($"SELECT * FROM Cart WHERE user_id = '{session_id}' ORDER BY date_added ASC");                                   
 
             var itemList = new List<Item>();
 
+            
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     Item item = new Item();
@@ -31,13 +32,29 @@ namespace FeedMe.Controllers
                     item.name = dt.Rows[i]["item_name"].ToString();
                     item.price = dt.Rows[i]["item_price"].ToString();
                     item.datetime = dt.Rows[i]["date_added"].ToString();
-
                     itemList.Add(item);
                 }
                 return View(itemList);
-
-            
-            
         }
+
+        public IActionResult Checkout(string id)
+        {
+            if (id == "checkout")
+            {
+                int session_id = Convert.ToInt32(HttpContext.Session.GetInt32(SessionUserId));
+                con.InsertOrUpdate($"EXEC CreateOrder '{session_id}'");
+
+
+                return View();
+            }
+
+            return View();
+        }
+
+
+
+
     }
+
+
 }

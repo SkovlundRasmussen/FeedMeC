@@ -9,6 +9,10 @@ namespace FeedMe.Models
         public string userId { get; set; }
         public string restId { get; set; }
 
+        public string itemName { get; set; }
+        public string itemPrice { get; set; }
+        public string dateAdded { get; set; }
+
         List<Item> items = new List<Item>();
 
         public void AddToCart(Item item)
