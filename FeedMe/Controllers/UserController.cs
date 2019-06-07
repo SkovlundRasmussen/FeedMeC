@@ -91,7 +91,7 @@ namespace FeedMe.Controllers
                 HttpContext.Session.SetInt32(SessionRoleId, Convert.ToInt32(dt.Rows[0]["role_id"]));
                 HttpContext.Session.SetInt32(SessionUserId, Convert.ToInt32(dt.Rows[0]["user_id"]));
                 
-                return View("Details");
+                return RedirectToAction("Details");
             }
             else {
                 Console.WriteLine("DET VIRKER IKKE");
@@ -183,6 +183,43 @@ namespace FeedMe.Controllers
             {
                 return View();
             }
+        }
+
+        public IActionResult Details()
+        {
+            var id = Convert.ToInt32(HttpContext.Session.GetInt32(SessionUserId));
+            DataTable dt = con.ReturnDataInDatatable($" SELECT Users.user_id, firstname, lastname, email, role_name, street_name, street_number, postal_code, city " +
+                                                     $" FROM Users " +
+                                                     $" INNER JOIN CustomerInfo ON CustomerInfo.user_id = Users.user_id " +
+                                                     $" INNER JOIN UsersRole ON UsersRole.role_id = Users.role_id WHERE Users.user_id = '{id}'");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                UserCreateViewModel userCustomer = new UserCreateViewModel();
+                CustomerInfo customer = new CustomerInfo();
+                User user = new User();
+                Role role = new Role();
+
+                user.user_id = Convert.ToInt32(dt.Rows[i]["user_id"]);
+                user.firstname = dt.Rows[i]["firstname"].ToString();
+                user.lastname = dt.Rows[i]["lastname"].ToString();
+                user.email = dt.Rows[i]["email"].ToString();
+
+                role.role_name = dt.Rows[i]["role_name"].ToString();
+
+                customer.street_name = dt.Rows[i]["street_name"].ToString();
+                customer.street_number = dt.Rows[i]["street_number"].ToString();
+                customer.city = dt.Rows[i]["city"].ToString();
+                customer.postal_code = Convert.ToInt32(dt.Rows[i]["postal_code"]);
+
+                userCustomer.user = user;
+                userCustomer.customerInfo = customer;
+                userCustomer.role = role;
+
+                return View(userCustomer);
+            }
+            return null;
+
         }
 
         // GET: User/Delete/5
