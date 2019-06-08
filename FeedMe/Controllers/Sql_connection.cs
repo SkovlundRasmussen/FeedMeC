@@ -9,7 +9,7 @@ namespace FeedMe.Controllers
 {
     public class Sql_connection
     {
-        string ConnectionString = "Server=DESKTOP-A44OUAA;Database=FeedMe;User=sa;Password=test1234;";
+        string ConnectionString = "Database=FeedMe;User=sa;Password=Test1234;";
 
         SqlConnection con;
 
