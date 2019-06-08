@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>New Account</h1>
 
-<h4>User</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,47 +14,44 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="@Model.user.firstname" class="control-label"></label>
+                <label asp-for="@Model.user.firstname" class="control-label">First Name:</label>
                 <input asp-for="@Model.user.firstname" class="form-control" />
                 <span asp-validation-for="@Model.user.firstname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.user.lastname" class="control-label"></label>
+                <label asp-for="@Model.user.lastname" class="control-label">Last Name:</label>
                 <input asp-for="@Model.user.lastname" class="form-control" />
                 <span asp-validation-for="@Model.user.lastname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.user.email" class="control-label"></label>
+                <label asp-for="@Model.user.email" class="control-label">Email:</label>
                 <input asp-for="@Model.user.email" class="form-control" />
                 <span asp-validation-for="@Model.user.email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.user.password" class="control-label"></label>
+                <label asp-for="@Model.user.password" class="control-label">Password:</label>
                 <input asp-for="@Model.user.password" class="form-control" />
                 <span asp-validation-for="@Model.user.password" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="@Model.customerInfo.city" class="control-label"></label>
-                <input asp-for="@Model.customerInfo.city" class="form-control" />
-                <span asp-validation-for="@Model.customerInfo.city" class="text-danger"></span>
+                <label asp-for="@Model.customerInfo.street_name" class="control-label">Street Name:</label>
+                <input asp-for="@Model.customerInfo.street_name" class="form-control" />
+                <span asp-validation-for="@Model.customerInfo.street_name" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="@Model.customerInfo.postal_code" class="control-label"></label>
+                <label asp-for="@Model.customerInfo.street_number" class="control-label">Street Number:</label>
+                <input asp-for="@Model.customerInfo.street_number" class="form-control" />
+                <span asp-validation-for="@Model.customerInfo.street_number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.customerInfo.postal_code" class="control-label">Postal Code:</label>
                 <input asp-for="@Model.customerInfo.postal_code" class="form-control" />
                 <span asp-validation-for="@Model.customerInfo.postal_code" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.customerInfo.street_name" class="control-label"></label>
-                <input asp-for="@Model.customerInfo.street_name" class="form-control" />
-                <span asp-validation-for="@Model.customerInfo.street_name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="@Model.customerInfo.street_number" class="control-label"></label>
-                <input asp-for="@Model.customerInfo.street_number" class="form-control" />
-                <span asp-validation-for="@Model.customerInfo.street_number" class="text-danger"></span>
+                <label asp-for="@Model.customerInfo.city" class="control-label">City:</label>
+                <input asp-for="@Model.customerInfo.city" class="form-control" />
+                <span asp-validation-for="@Model.customerInfo.city" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -63,9 +59,5 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

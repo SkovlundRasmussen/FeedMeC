@@ -5,21 +5,42 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Login</h1>
+<h1>Customer Login</h1>
 
 <hr />
+
+<div>
+    <p>
+        Here you can login in to your account, if you do not yet have an account you can click on the "Register".
+    </p>
+
+    <a class="btn btn-primary" asp-area="" asp-controller="User" asp-action="Create">Register</a>
+
+</div>
+
+<br />
+
+<div>
+    <p>
+        If you are trying to login as a restaurant, please click the "Login Restaurant" below.
+    </p>
+
+    <a class="btn btn-primary" asp-area="" asp-controller="Restaurant" asp-action="Login">Login Restaurant</a>
+</div>
+<hr />
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Login">
+        <form asp-action="User">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="@Model.user.email" class="control-label"></label>
-                <input asp-for="@Model.user.email" class="form-control" />
+                <label asp-for="@Model.user.email" class="control-label">Email:</label>
+                <input asp-for="@Model.user.email" class="form-control" placeholder="input email"/>
                 <span asp-validation-for="@Model.user.email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.user.password" class="control-label"></label>
-                <input asp-for="@Model.user.password" class="form-control" />
+                <label asp-for="@Model.user.password" class="control-label">Password:</label>
+                <input asp-for="@Model.user.password" class="form-control" placeholder="input password" t/>
                 <span asp-validation-for="@Model.user.password" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,5 +49,4 @@
         </form>
     </div>
 </div>
-
 
