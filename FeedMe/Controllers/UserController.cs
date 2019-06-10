@@ -172,7 +172,16 @@ namespace FeedMe.Controllers
         {
             if(ModelState.IsValid)
             {
-                con.InsertOrUpdate($"UPDATE Users SET firstname = '{user.firstname}', lastname = '{user.lastname}', email = '{user.email}' WHERE user_id = '{id}'");
+                if (user.password != "")
+                {
+                    var hashedPassword = CalculateHash(user.password);
+                    con.InsertOrUpdate($"UPDATE Users SET firstname = '{user.firstname}', lastname = '{user.lastname}', email = '{user.email}', password = '{hashedPassword}' WHERE user_id = '{id}'");
+                }
+                else
+                {
+                    con.InsertOrUpdate($"UPDATE Users SET firstname = '{user.firstname}', lastname = '{user.lastname}', email = '{user.email}' WHERE user_id = '{id}'");
+                }
+
                 con.InsertOrUpdate($"UPDATE CustomerInfo SET street_name = '{customerInfo.street_name}', street_number = '{customerInfo.street_number}', postal_code = '{customerInfo.postal_code}', city = '{customerInfo.city}' WHERE user_id = '{id}'");
 
                 return RedirectToAction(nameof(Index));
