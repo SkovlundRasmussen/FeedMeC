@@ -42,18 +42,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Index">Restaurants</a>
                         </li>
-                        <li>
-
-                            <p>@session_id </p>
-
-                        </li>
                     </ul>
                 </div>
             </div>
             <div class="container">
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-sm-row-reverse">
-                        <ul class="navbar-nav " flex-grow-1">
+                        <ul class="navbar-nav "flex-grow-1">
                             <li class="nav-item" style="padding-left: 5px;">
                                 <a class="btn btn-primary" asp-area="" asp-controller="User" asp-action="Create">Register</a>
                             </li>
@@ -64,9 +59,7 @@
                     </ul>
                 </div>
             </div>
-
         </nav>
-        
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />
