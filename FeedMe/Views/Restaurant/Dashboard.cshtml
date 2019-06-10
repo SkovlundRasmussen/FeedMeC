@@ -1,0 +1,31 @@
+﻿@page
+@{
+}
+
+<body>
+    <h1>Restaurant Dashboard</h1>
+    <hr />
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="align-content: center">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="Info">Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="MenuItems">Menu Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="OrdersPending">Pending Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="OrdersAccepted">Accepted Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="OrdersRejected">Rejected Orders</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>

@@ -65,6 +65,11 @@ namespace FeedMe.Controllers
             return View();
         }
 
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
         public IActionResult Add(string id, string name, string price, string rest_id)
         {
             var model = collection.Find(FilterDefinition<Restaurant>.Empty).ToList();
@@ -116,7 +121,8 @@ namespace FeedMe.Controllers
 
                 HttpContext.Session.SetInt32(SessionRoleId, Convert.ToInt32(dt.Rows[0]["role_id"]));
                 HttpContext.Session.SetInt32(SessionRestId, Convert.ToInt32(dt.Rows[0]["rest_id"]));
-                return View("Index");
+
+                return View("Dashboard");
             }
             else
             {
