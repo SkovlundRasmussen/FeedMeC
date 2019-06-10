@@ -43,7 +43,7 @@ namespace FeedMe.Controllers
             {
                 int session_id = Convert.ToInt32(HttpContext.Session.GetInt32(SessionUserId));
                 con.InsertOrUpdate($"EXEC CreateOrder '{session_id}'");
-                return View();
+                return RedirectToAction("Index");
             }
 
             return View();

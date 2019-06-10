@@ -20,6 +20,9 @@
                 Price
             </th>
             <th>
+                Status
+            </th>
+            <th>
                 Name
             </th>
             <th>
@@ -42,7 +45,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.item.id)
+                    @Html.DisplayFor(modelItem => item.order_id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.item.name)
@@ -71,8 +74,8 @@
                     @Html.DisplayFor(modelItem => item.item.datetime)
                 </td>
                 <td>
-                    @Html.ActionLink("Accept", "AcceptOrder", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Deny", "DenyOrder", new { /* id=item.PrimaryKey */ }) 
+                    @Html.ActionLink("Accept", "AcceptOrder", new { id=item.order_id }) |
+                    @Html.ActionLink("Deny", "deniedOrders", new { id=item.order_id }) 
                 </td>
             </tr>
         }

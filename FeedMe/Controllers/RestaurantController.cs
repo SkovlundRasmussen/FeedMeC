@@ -152,7 +152,7 @@ namespace FeedMe.Controllers
                     break;
 
                 default:
-
+                    _query += " AND OrderStatus.status_id = 1";
                     break;
             }
 
@@ -195,6 +195,19 @@ namespace FeedMe.Controllers
             }
             return View(itemList);
 
+        }
+
+        public IActionResult acceptOrder(string id)
+        {
+            string _query = $"UPDATE Orders SET status_id = 2 WHERE order_id = '{id}'";
+            con.InsertOrUpdate(_query);
+            return RedirectToAction("Orders");
+        }
+        public IActionResult deniedOrders(string id)
+        {
+            string _query = $"UPDATE Orders SET status_id = 3 WHERE order_id = '{id}'";
+            con.InsertOrUpdate(_query);
+            return RedirectToAction("Orders");
         }
     }
 }
