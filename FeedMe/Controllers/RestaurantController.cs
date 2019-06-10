@@ -105,9 +105,9 @@ namespace FeedMe.Controllers
         public IActionResult Login(RestaurantLogin rest)
         {
             var hashed_pw = CalculateHash(rest.pw);
-            DataTable dt = con.ReturnDataInDatatable($"SELECT email, Restaurant_login.role_id, Restaurant_login.rest_id " +
-                                                     $"FROM Restaurant_login " +
-                                                     $"INNER JOIN UsersRole ON Restaurant_login.role_id = UsersRole.role_id " +
+            DataTable dt = con.ReturnDataInDatatable($"SELECT email, RestaurantLogin.role_id, RestaurantLogin.rest_id " +
+                                                     $"FROM RestaurantLogin " +
+                                                     $"INNER JOIN UsersRole ON RestaurantLogin.role_id = UsersRole.role_id " +
                                                      $"WHERE email = '{ rest.email }' AND pw = '{hashed_pw}'");
 
             if (dt.Rows.Count == 1)
@@ -116,7 +116,7 @@ namespace FeedMe.Controllers
 
                 HttpContext.Session.SetInt32(SessionRoleId, Convert.ToInt32(dt.Rows[0]["role_id"]));
                 HttpContext.Session.SetInt32(SessionRestId, Convert.ToInt32(dt.Rows[0]["rest_id"]));
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -125,5 +125,6 @@ namespace FeedMe.Controllers
             }
 
         }
+
     }
 }
