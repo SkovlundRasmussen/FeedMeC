@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    const string SessionUserId = "_UserId";
+    var session_id = Context.Session.GetInt32(SessionUserId);
+}
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,7 +21,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -34,19 +42,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Index">Restaurants</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Create">Register user</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Login</a>
+                        <li>
+
+                            <p>@session_id </p>
+
                         </li>
                     </ul>
                 </div>
             </div>
+            <div class="container">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-sm-row-reverse">
+                        <ul class="navbar-nav " flex-grow-1">
+                            <li class="nav-item" style="padding-left: 5px;">
+                                <a class="btn btn-primary" asp-area="" asp-controller="User" asp-action="Create">Register</a>
+                            </li>
+                            <li class="nav-item" style="padding-left: 5px;">
+                                <a class="btn btn-primary" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                            </li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+
         </nav>
+        
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />

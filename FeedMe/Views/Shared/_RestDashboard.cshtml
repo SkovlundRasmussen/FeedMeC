@@ -1,0 +1,25 @@
+﻿<h1>Restaurant Dashboard</h1>
+<hr />
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="align-content: center">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="Info">Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="MenuItems">Menu Items</a>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Pending Order", "Orders", new { id="pending"}, new { @class="nav-link"})
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Accepted Orders", "Orders", new { id = "accepted" }, new { @class="nav-link"})
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Rejected Orders", "Orders", new { id = "denied" }, new {@class="nav-link" })
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

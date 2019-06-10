@@ -11,12 +11,8 @@ namespace FeedMe.Controllers
 {
     public class HomeController : Controller
     {
-
-
-
         public IActionResult Index()
         {
-            //return new ContentResult { Content = " HEJ" };
             return View();
         }
 
